@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>АндерСон Кейтеринг — ресторан приезжает к вам</title>
+<meta name="description" content="Корпоративный кейтеринг от сети ресторанов АндерСон. Москва и МО. Ресторанная кухня на вашей площадке.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px;scroll-padding-top:80px}
+body{font-family:'Inter',sans-serif;color:#1a1a1a;background:#FFFDF9;line-height:1.65;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+button{cursor:pointer;border:none;background:none;font-family:inherit}
+input,textarea{font-family:inherit;font-size:inherit}
+
+:root{
+  --serif:'Cormorant Garamond',Georgia,serif;
+  --sans:'Inter',-apple-system,sans-serif;
+  --cream:#FFFDF9;
+  --cream-dark:#F7F3EC;
+  --charcoal:#111111;
+  --charcoal-soft:#1E1E1E;
+  --warm-gray:#94918A;
+  --warm-gray-light:#C4C0B8;
+  --terra:#B5451B;
+  --terra-deep:#8C3514;
+  --gold:#C4973B;
+  --gold-soft:rgba(196,151,59,0.15);
+  --olive:#5C6B4F;
+  --border-light:rgba(0,0,0,0.06);
+  --border-dark:rgba(255,255,255,0.08);
+}
+
+/* === TYPOGRAPHY === */
+h1,h2,h3,h4{font-family:var(--serif);font-weight:500;line-height:1.1;letter-spacing:-0.02em}
+h1{font-size:clamp(3rem,6vw,5.5rem);font-weight:400}
+h2{font-size:clamp(2rem,4vw,3.5rem);font-weight:400}
+h3{font-size:clamp(1.25rem,2vw,1.75rem)}
+.text-sm{font-size:0.875rem}
+.text-xs{font-size:0.75rem;letter-spacing:0.1em;text-transform:uppercase;font-weight:600}
+
+/* === LAYOUT === */
+.wrap{max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,64px)}
+.sec{padding:clamp(80px,10vw,140px) 0}
+
+/* === BUTTONS === */
+.btn{display:inline-flex;align-items:center;gap:10px;font-size:0.9rem;font-weight:500;letter-spacing:0.02em;transition:all .4s cubic-bezier(.25,.46,.45,.94)}
+.btn-fill{padding:16px 36px;background:var(--terra);color:#fff;border-radius:0}
+.btn-fill:hover{background:var(--terra-deep);transform:translateY(-2px);box-shadow:0 12px 32px rgba(181,69,27,0.25)}
+.btn-outline{padding:16px 36px;border:1px solid;border-radius:0}
+.btn-outline:hover{background:var(--charcoal);color:#fff;border-color:var(--charcoal)}
+.btn-ghost{padding:8px 0;position:relative}
+.btn-ghost::after{content:'';position:absolute;bottom:4px;left:0;width:0;height:1px;background:currentColor;transition:width .4s}
+.btn-ghost:hover::after{width:100%}
+.btn-inv{padding:16px 36px;border:1px solid rgba(255,255,255,0.25);color:#fff;border-radius:0}
+.btn-inv:hover{background:#fff;color:var(--charcoal);border-color:#fff}
+.btn svg{transition:transform .3s}
+.btn:hover svg{transform:translateX(4px)}
+
+/* === HEADER === */
+.hdr{position:fixed;top:0;left:0;right:0;z-index:100;padding:20px 0;transition:all .5s}
+.hdr.scrolled{background:rgba(255,253,249,0.95);backdrop-filter:blur(20px);box-shadow:0 1px 0 var(--border-light);padding:14px 0}
+.hdr .wrap{display:flex;align-items:center;justify-content:space-between}
+.hdr-logo{font-family:var(--serif);font-size:1.6rem;font-weight:600;color:#fff;letter-spacing:-0.03em;transition:color .5s}
+.hdr.scrolled .hdr-logo{color:var(--charcoal)}
+.hdr-nav{display:flex;gap:32px;align-items:center}
+.hdr-nav a{font-size:.85rem;font-weight:400;color:rgba(255,255,255,0.7);letter-spacing:0.01em;transition:color .3s}
+.hdr-nav a:hover{color:#fff}
+.hdr.scrolled .hdr-nav a{color:var(--warm-gray)}
+.hdr.scrolled .hdr-nav a:hover{color:var(--charcoal)}
+.hdr-phone{font-size:.85rem;font-weight:500;color:rgba(255,255,255,0.8);transition:color .5s}
+.hdr.scrolled .hdr-phone{color:var(--charcoal)}
+.hdr-cta{margin-left:20px}
+.hdr-cta .btn-fill{padding:12px 28px;font-size:.8rem}
+.hdr.scrolled .hdr-cta .btn-fill{background:var(--charcoal)}
+.hdr.scrolled .hdr-cta .btn-fill:hover{background:var(--terra)}
+.hdr-burger{display:none;width:32px;height:24px;position:relative;z-index:101}
+.hdr-burger span{display:block;position:absolute;left:0;right:0;height:1.5px;background:#fff;transition:all .4s;border-radius:1px}
+.hdr.scrolled .hdr-burger span{background:var(--charcoal)}
+.hdr-burger span:nth-child(1){top:0}
+.hdr-burger span:nth-child(2){top:50%;transform:translateY(-50%)}
+.hdr-burger span:nth-child(3){bottom:0}
+.hdr-burger.open span:nth-child(1){top:50%;transform:translateY(-50%) rotate(45deg)}
+.hdr-burger.open span:nth-child(2){opacity:0}
+.hdr-burger.open span:nth-child(3){bottom:50%;transform:translateY(50%) rotate(-45deg)}
+.hdr-burger.open span{background:#fff!important}
+
+/* === MOBILE NAV === */
+.mnav{position:fixed;inset:0;background:var(--charcoal);z-index:99;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:0;opacity:0;pointer-events:none;transition:opacity .5s}
+.mnav.open{opacity:1;pointer-events:all}
+.mnav a{display:block;font-family:var(--serif);font-size:2.5rem;font-weight:400;color:#fff;padding:12px 0;opacity:0;transform:translateY(20px);transition:all .4s}
+.mnav.open a{opacity:1;transform:translateY(0)}
+.mnav.open a:nth-child(1){transition-delay:.1s}
+.mnav.open a:nth-child(2){transition-delay:.15s}
+.mnav.open a:nth-child(3){transition-delay:.2s}
+.mnav.open a:nth-child(4){transition-delay:.25s}
+.mnav.open a:nth-child(5){transition-delay:.3s}
+.mnav.open a:nth-child(6){transition-delay:.35s}
+.mnav a:hover{color:var(--gold)}
+.mnav-phone{margin-top:40px;font-size:1.2rem;color:var(--gold)!important;font-family:var(--sans)!important;font-weight:500!important}
+
+/* === HERO === */
+.hero{min-height:100vh;display:flex;align-items:flex-end;position:relative;overflow:hidden;background:var(--charcoal)}
+.hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1555244162-803834f70033?w=1920&q=80&fit=crop') center/cover no-repeat}
+.hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(160deg,rgba(15,10,5,0.85) 0%,rgba(10,10,10,0.7) 40%,rgba(17,17,17,0.8) 100%)}
+.hero-grain{position:absolute;inset:0;opacity:.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");background-size:128px}
+.hero-glow{position:absolute;top:20%;left:10%;width:600px;height:600px;background:radial-gradient(circle,rgba(181,69,27,0.08) 0%,transparent 70%);pointer-events:none}
+.hero-glow2{position:absolute;bottom:10%;right:5%;width:400px;height:400px;background:radial-gradient(circle,rgba(196,151,59,0.06) 0%,transparent 70%);pointer-events:none}
+.hero .wrap{position:relative;z-index:2;padding-top:180px;padding-bottom:clamp(60px,10vw,120px);max-width:900px}
+.hero-label{display:inline-flex;align-items:center;gap:10px;margin-bottom:32px;opacity:0;animation:fadeUp .8s .3s forwards}
+.hero-label .line{width:40px;height:1px;background:var(--gold)}
+.hero-label span{font-size:.75rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);font-weight:500}
+.hero h1{color:#fff;margin-bottom:28px;opacity:0;animation:fadeUp .8s .5s forwards}
+.hero h1 em{font-style:italic;color:var(--gold)}
+.hero-lead{color:rgba(255,255,255,0.55);font-size:clamp(1rem,1.3vw,1.15rem);max-width:520px;margin-bottom:48px;line-height:1.75;font-weight:300;opacity:0;animation:fadeUp .8s .7s forwards}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap;opacity:0;animation:fadeUp .8s .9s forwards}
+.hero-scroll{position:absolute;bottom:40px;left:50%;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:8px;color:rgba(255,255,255,0.3);font-size:.65rem;letter-spacing:.15em;text-transform:uppercase;animation:fadeUp .8s 1.2s forwards;opacity:0}
+.hero-scroll .arrow{width:1px;height:40px;background:linear-gradient(to bottom,rgba(255,255,255,0.3),transparent);animation:scrollArrow 2s infinite}
+@keyframes scrollArrow{0%,100%{opacity:1;transform:scaleY(1)}50%{opacity:.3;transform:scaleY(.5)}}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0)}}
+.hero-label,.hero h1,.hero-lead,.hero-actions,.hero-scroll{transform:translateY(24px)}
+
+/* === SECTION COMMON === */
+.sec-label{display:inline-flex;align-items:center;gap:12px;margin-bottom:20px}
+.sec-label .line{width:32px;height:1px;background:var(--gold)}
+.sec-label span{font-size:.7rem;letter-spacing:.15em;text-transform:uppercase;color:var(--gold);font-weight:600}
+.sec h2{margin-bottom:20px}
+.sec-sub{color:var(--warm-gray);max-width:540px;margin-bottom:40px;font-weight:300;font-size:1.05rem;line-height:1.7}
+
+/* === PAIN SECTION === */
+.pain{background:var(--cream)}
+.pain-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:var(--border-light);border:1px solid var(--border-light)}
+.pain-card{background:var(--cream);padding:clamp(32px,4vw,56px);transition:background .4s}
+.pain-card:hover{background:#fff}
+.pain-num{font-family:var(--serif);font-size:3rem;font-weight:400;color:var(--cream-dark);line-height:1;margin-bottom:20px;transition:color .4s}
+.pain-card:hover .pain-num{color:var(--terra)}
+.pain-card h3{margin-bottom:12px}
+.pain-card p{color:var(--warm-gray);font-size:.9rem;line-height:1.7}
+
+/* === APPROACH (UTP) === */
+.approach{background:var(--charcoal);color:#fff;position:relative}
+.approach::before{content:'';position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1559339352-11d035aa65de?w=1600&q=60&fit=crop') center/cover no-repeat;opacity:.06}
+.approach .wrap{position:relative;z-index:1}
+.approach .sec-sub{color:rgba(255,255,255,0.45)}
+.approach-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border-dark)}
+.approach-card{background:var(--charcoal-soft);padding:clamp(28px,3vw,48px);transition:background .4s}
+.approach-card:hover{background:#252525}
+.approach-card .ico{width:48px;height:48px;border:1px solid var(--border-dark);border-radius:50%;display:flex;align-items:center;justify-content:center;margin-bottom:24px;color:var(--gold);transition:all .4s}
+.approach-card:hover .ico{border-color:var(--gold);background:var(--gold-soft)}
+.approach-card h3{color:#fff;margin-bottom:10px;font-size:1.2rem}
+.approach-card p{color:rgba(255,255,255,0.4);font-size:.875rem;line-height:1.65}
+
+/* === FORMATS === */
+.formats{background:var(--cream)}
+.fmt-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--border-light)}
+.fmt-card{border-right:1px solid var(--border-light);display:flex;flex-direction:column;transition:background .4s;overflow:hidden}
+.fmt-card:last-child{border-right:none}
+.fmt-card:hover{background:#fff}
+.fmt-img{height:220px;background-size:cover;background-position:center;position:relative}
+.fmt-img::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 50%,rgba(0,0,0,0.04) 100%)}
+.fmt-card.featured .fmt-img::after{background:linear-gradient(to bottom,transparent 50%,rgba(0,0,0,0.2) 100%)}
+.fmt-body{padding:clamp(28px,3vw,44px)}
+.fmt-card.featured{background:var(--charcoal);color:#fff;border-color:var(--charcoal);transition:background .4s,color .4s,transform .5s,box-shadow .5s}
+.fmt-card.featured:hover{background:#fff;color:var(--charcoal)}
+.fmt-card.featured:hover .fmt-badge{color:var(--terra)}
+.fmt-card.featured:hover .fmt-meta{color:var(--warm-gray);border-color:var(--border-light)}
+.fmt-card.featured:hover .fmt-list li{color:var(--warm-gray)}
+.fmt-card.featured:hover .fmt-price small{color:var(--warm-gray)}
+.fmt-card.featured:hover .btn-fill{background:var(--terra);color:#fff}
+.fmt-badge{font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--terra);margin-bottom:20px}
+.fmt-card.featured .fmt-badge{color:var(--gold)}
+.fmt-card h3{font-size:clamp(1.5rem,2vw,2rem);margin-bottom:8px}
+.fmt-meta{font-size:.85rem;color:var(--warm-gray);margin-bottom:28px;padding-bottom:28px;border-bottom:1px solid var(--border-light)}
+.fmt-card.featured .fmt-meta{color:rgba(255,255,255,0.4);border-color:var(--border-dark)}
+.fmt-list{flex-grow:1;margin-bottom:32px}
+.fmt-list li{font-size:.875rem;padding:6px 0;color:var(--warm-gray);display:flex;align-items:flex-start;gap:12px}
+.fmt-list li::before{content:'';width:4px;height:4px;border-radius:50%;background:var(--gold);margin-top:8px;flex-shrink:0}
+.fmt-card.featured .fmt-list li{color:rgba(255,255,255,0.5)}
+.fmt-price{font-family:var(--serif);font-size:clamp(1.5rem,2vw,2.25rem);font-weight:400;margin-bottom:28px}
+.fmt-price small{font-family:var(--sans);font-size:.8rem;font-weight:400;color:var(--warm-gray)}
+.fmt-card.featured .fmt-price small{color:rgba(255,255,255,0.4)}
+.fmt-card.featured .btn-fill{background:var(--gold);color:var(--charcoal)}
+.fmt-card.featured .btn-fill:hover{background:#d4a73f}
+
+/* === PROCESS === */
+.process{background:var(--cream-dark)}
+.proc-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0}
+.proc-step{padding:clamp(24px,2.5vw,40px);border-right:1px solid var(--border-light);position:relative}
+.proc-step:last-child{border-right:none}
+.proc-step .num{font-family:var(--serif);font-size:4rem;font-weight:400;color:var(--cream-dark);line-height:1;margin-bottom:16px;transition:color .4s}
+.proc-step:hover .num{color:var(--terra)}
+.proc-step h4{font-family:var(--sans);font-weight:600;font-size:.9rem;margin-bottom:8px;letter-spacing:0}
+.proc-step p{font-size:.8rem;color:var(--warm-gray);line-height:1.6}
+.proc-note{margin-top:48px;display:flex;align-items:center;gap:16px;padding:20px 28px;border:1px solid var(--border-light);background:#fff;font-size:.9rem}
+.proc-note .dot{width:8px;height:8px;border-radius:50%;background:var(--olive);flex-shrink:0}
+
+/* === GALLERY MARQUEE === */
+.gallery{padding:clamp(80px,10vw,120px) 0 clamp(60px,8vw,80px);background:var(--cream);overflow:hidden}
+.gal-marquee{position:relative;width:100%;overflow:hidden}
+.gal-marquee::before,.gal-marquee::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:3;pointer-events:none}
+.gal-marquee::before{left:0;background:linear-gradient(to right,var(--cream),transparent)}
+.gal-marquee::after{right:0;background:linear-gradient(to left,var(--cream),transparent)}
+.gal-track{display:flex;gap:16px;width:max-content;animation:marquee 35s linear infinite}
+.gal-marquee:hover .gal-track{animation-play-state:paused}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.gal-item{width:340px;height:260px;background-size:cover;background-position:center;border-radius:4px;position:relative;overflow:hidden;flex-shrink:0;transition:transform .4s}
+.gal-item:hover{transform:scale(1.03)}
+.gal-item::after{content:'';position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,0.55) 0%,transparent 50%)}
+.gal-cap{position:absolute;bottom:16px;left:20px;right:20px;color:#fff;font-size:.8rem;font-weight:500;z-index:2;letter-spacing:.02em}
+
+/* === STATS === */
+.stats{background:var(--charcoal);padding:clamp(60px,8vw,100px) 0}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.stat{text-align:center;padding:clamp(20px,3vw,40px);border-right:1px solid var(--border-dark)}
+.stat:last-child{border-right:none}
+.stat-num{font-family:var(--serif);font-size:clamp(2.5rem,5vw,4rem);font-weight:400;color:#fff;line-height:1;margin-bottom:8px}
+.stat-num .suffix{color:var(--gold)}
+.stat-label{font-size:.8rem;color:rgba(255,255,255,0.35);letter-spacing:.03em}
+
+/* === TRANSPARENCY === */
+.transp{background:var(--cream)}
+.transp-grid{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border-light)}
+.transp-col{padding:clamp(32px,4vw,56px)}
+.transp-col:first-child{border-right:1px solid var(--border-light)}
+.transp-col h3{font-family:var(--sans);font-weight:600;font-size:1rem;margin-bottom:24px;display:flex;align-items:center;gap:10px}
+.transp-col li{padding:14px 0;border-bottom:1px solid var(--border-light);font-size:.9rem;color:var(--warm-gray);display:flex;align-items:center;gap:12px}
+.transp-col li:last-child{border-bottom:none}
+.transp-col li .ck{width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ck-yes{background:rgba(92,107,79,0.1);color:var(--olive)}
+.ck-opt{background:var(--gold-soft);color:var(--gold)}
+.transp-banner{margin-top:2px;background:var(--charcoal);color:#fff;padding:24px 32px;display:flex;align-items:center;gap:16px;font-size:.9rem;font-weight:400}
+.transp-banner svg{flex-shrink:0;color:var(--gold)}
+
+/* === REVIEWS === */
+.reviews{background:var(--cream-dark)}
+.rev-logos{display:flex;gap:48px;align-items:center;justify-content:center;margin-bottom:64px;flex-wrap:wrap;opacity:.3}
+.rev-logo{font-family:var(--serif);font-size:1.4rem;font-weight:500;color:var(--charcoal)}
+.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:1px solid var(--border-light)}
+.rev-card{padding:clamp(28px,3vw,44px);border-right:1px solid var(--border-light);background:var(--cream-dark);transition:background .4s}
+.rev-card:last-child{border-right:none}
+.rev-card:hover{background:#fff}
+.rev-stars{display:flex;gap:2px;margin-bottom:20px;color:var(--gold)}
+.rev-text{font-family:var(--serif);font-size:1.1rem;font-weight:400;font-style:italic;line-height:1.6;margin-bottom:28px;color:var(--charcoal)}
+.rev-author{display:flex;align-items:center;gap:14px}
+.rev-ava{width:44px;height:44px;border-radius:50%;background-size:cover;background-position:center;flex-shrink:0}
+.rev-name{font-weight:600;font-size:.85rem}
+.rev-role{font-size:.75rem;color:var(--warm-gray)}
+
+/* === DEGUSTATION === */
+.degu{background:var(--cream)}
+.degu-inner{border:1px solid var(--border-light);max-width:720px}
+.degu-img{display:none}
+.degu-content{padding:clamp(40px,4vw,72px);display:flex;flex-direction:column;justify-content:center}
+.degu-content h2{margin-bottom:16px}
+.degu-content>p{color:var(--warm-gray);margin-bottom:28px;font-size:.95rem;line-height:1.7}
+.degu-list li{padding:10px 0;display:flex;align-items:center;gap:12px;font-size:.9rem}
+.degu-list li svg{color:var(--gold);flex-shrink:0}
+.degu-content .btn{margin-top:32px;align-self:flex-start}
+
+/* === FAQ === */
+.faq{background:var(--cream-dark)}
+.faq-list{max-width:760px;margin:32px auto 0}
+.faq-item{border-bottom:1px solid var(--border-light)}
+.faq-q{width:100%;text-align:left;padding:24px 0;font-family:var(--serif);font-size:1.15rem;font-weight:400;display:flex;justify-content:space-between;align-items:center;gap:16px;transition:color .3s}
+.faq-q:hover{color:var(--terra)}
+.faq-q svg{flex-shrink:0;transition:transform .4s;color:var(--warm-gray)}
+.faq-item.open .faq-q svg{transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .5s cubic-bezier(.25,.46,.45,.94)}
+.faq-item.open .faq-a{max-height:200px}
+.faq-a p{padding-bottom:24px;font-size:.9rem;color:var(--warm-gray);line-height:1.75}
+
+/* === FINAL CTA === */
+.cta-final{background:var(--charcoal);color:#fff;padding:clamp(80px,10vw,140px) 0;position:relative;overflow:hidden}
+.cta-final .glow{position:absolute;top:-200px;right:-100px;width:600px;height:600px;background:radial-gradient(circle,rgba(181,69,27,0.06) 0%,transparent 70%);pointer-events:none}
+.cta-final .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1fr 1fr;gap:clamp(40px,6vw,80px);align-items:center}
+.cta-text h2{color:#fff;margin-bottom:16px}
+.cta-text p{color:rgba(255,255,255,0.45);margin-bottom:32px;font-size:1rem;line-height:1.7}
+.cta-contacts{display:flex;flex-direction:column;gap:12px}
+.cta-contact{display:flex;align-items:center;gap:10px;color:rgba(255,255,255,0.5);font-size:.9rem;transition:color .3s}
+.cta-contact:hover{color:#fff}
+.cta-contact svg{flex-shrink:0;color:var(--gold)}
+.cta-form{background:var(--charcoal-soft);border:1px solid var(--border-dark);padding:clamp(32px,4vw,52px)}
+.cta-form h3{font-size:1.5rem;margin-bottom:8px;color:#fff}
+.cta-form>p{font-size:.85rem;color:rgba(255,255,255,0.4);margin-bottom:28px}
+.f-group{margin-bottom:14px}
+.f-group input,.f-group textarea{width:100%;padding:14px 18px;border:1px solid var(--border-dark);background:transparent;color:#fff;font-size:.9rem;outline:none;transition:border-color .3s}
+.f-group input::placeholder,.f-group textarea::placeholder{color:rgba(255,255,255,0.25)}
+.f-group input:focus,.f-group textarea:focus{border-color:var(--gold)}
+.f-group textarea{resize:vertical;min-height:60px}
+.cta-form .btn-fill{width:100%;justify-content:center;padding:18px;font-size:.9rem;margin-top:4px;background:var(--gold);color:var(--charcoal)}
+.cta-form .btn-fill:hover{background:#d4a73f;box-shadow:0 12px 32px rgba(196,151,59,0.2)}
+.form-ok{display:none;text-align:center;padding:40px 0}
+.form-ok.show{display:block}
+.form-ok .chk{width:64px;height:64px;border-radius:50%;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;margin:0 auto 20px;color:var(--gold);animation:pop .5s}
+@keyframes pop{0%{transform:scale(0)}60%{transform:scale(1.2)}100%{transform:scale(1)}}
+.form-ok h3{color:#fff;margin-bottom:6px}
+.form-ok p{color:rgba(255,255,255,0.45);font-size:.9rem}
+
+/* === FOOTER === */
+.ftr{background:#0a0a0a;padding:48px 0 32px;color:rgba(255,255,255,0.3);font-size:.8rem}
+.ftr-inner{display:flex;justify-content:space-between;align-items:flex-start;gap:32px;flex-wrap:wrap;padding-bottom:32px;border-bottom:1px solid rgba(255,255,255,0.06)}
+.ftr-logo{font-family:var(--serif);font-size:1.3rem;font-weight:600;color:#fff;margin-bottom:6px}
+.ftr-copy{text-align:center;margin-top:24px;color:rgba(255,255,255,0.15)}
+
+/* === SCROLL TOP === */
+.to-top{position:fixed;bottom:32px;right:32px;width:44px;height:44px;background:var(--charcoal);color:#fff;display:flex;align-items:center;justify-content:center;z-index:90;opacity:0;transform:translateY(16px);transition:all .4s;pointer-events:none}
+.to-top.show{opacity:1;transform:translateY(0);pointer-events:all}
+.to-top:hover{background:var(--terra)}
+
+/* === MOBILE CTA BAR === */
+.m-cta{display:none;position:fixed;bottom:0;left:0;right:0;background:rgba(255,253,249,0.97);backdrop-filter:blur(16px);padding:12px 20px;z-index:89;box-shadow:0 -1px 0 var(--border-light);transform:translateY(100%);transition:transform .4s}
+.m-cta.show{transform:translateY(0)}
+.m-cta .btn-fill{width:100%;justify-content:center;padding:16px}
+
+/* === REVEAL ANIMATIONS === */
+.rv{opacity:0;transform:translateY(32px);transition:opacity .9s cubic-bezier(.16,1,.3,1),transform .9s cubic-bezier(.16,1,.3,1)}
+.rv.in{opacity:1;transform:none}
+.rv-d1{transition-delay:.12s}
+.rv-d2{transition-delay:.24s}
+.rv-d3{transition-delay:.36s}
+.rv-d4{transition-delay:.48s}
+.rv-scale{opacity:0;transform:scale(0.92);transition:opacity .8s,transform .8s cubic-bezier(.16,1,.3,1)}
+.rv-scale.in{opacity:1;transform:scale(1)}
+.rv-left{opacity:0;transform:translateX(-40px);transition:opacity .8s,transform .8s cubic-bezier(.16,1,.3,1)}
+.rv-left.in{opacity:1;transform:none}
+.rv-right{opacity:0;transform:translateX(40px);transition:opacity .8s,transform .8s cubic-bezier(.16,1,.3,1)}
+.rv-right.in{opacity:1;transform:none}
+
+/* === GRADIENT ANIMATED HEADING === */
+.grad-text{background:linear-gradient(135deg,var(--gold),var(--terra),var(--gold),#D4A03F);background-size:300% 300%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:gradShift 6s ease infinite}
+@keyframes gradShift{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+
+/* === ENHANCED HOVER EFFECTS === */
+.pain-card{transition:background .4s,transform .4s,box-shadow .4s}
+.pain-card:hover{background:#fff;transform:translateY(-4px);box-shadow:0 20px 40px rgba(0,0,0,0.06)}
+.approach-card{transition:background .4s,transform .4s}
+.approach-card:hover{background:#252525;transform:translateY(-4px)}
+.fmt-card{transition:background .4s,transform .5s,box-shadow .5s}
+.fmt-card:hover{background:#fff;transform:translateY(-6px);box-shadow:0 24px 48px rgba(0,0,0,0.08)}
+.fmt-card.featured:hover{transform:translateY(-6px);box-shadow:0 24px 48px rgba(0,0,0,0.2)}
+.rev-card{transition:background .4s,transform .4s,box-shadow .4s}
+.rev-card:hover{background:#fff;transform:translateY(-4px);box-shadow:0 16px 40px rgba(0,0,0,0.06)}
+.proc-step{transition:background .3s}
+.proc-step:hover{background:rgba(0,0,0,0.015)}
+.gal-item{transition:transform .5s cubic-bezier(.16,1,.3,1)}
+.gal-item:hover{transform:scale(1.04)}
+.btn-fill{position:relative;overflow:hidden}
+.btn-fill::before{content:'';position:absolute;top:50%;left:50%;width:0;height:0;background:rgba(255,255,255,0.1);border-radius:50%;transform:translate(-50%,-50%);transition:width .6s,height .6s}
+.btn-fill:hover::before{width:300px;height:300px}
+.to-top{transition:all .4s cubic-bezier(.16,1,.3,1)}
+.to-top:hover{transform:translateY(-4px);box-shadow:0 8px 24px rgba(181,69,27,0.3)}
+
+/* === PARALLAX PREP === */
+.parallax-bg{will-change:transform;transform:scale(1.1)}
+
+/* === FLOATING ELEMENTS === */
+.hero-glow{animation:floatGlow 8s ease-in-out infinite}
+.hero-glow2{animation:floatGlow 10s ease-in-out infinite reverse}
+@keyframes floatGlow{0%,100%{transform:translate(0,0)}50%{transform:translate(20px,-20px)}}
+
+/* === CURSOR FOLLOWER LINE on NAV === */
+.hdr-nav a{position:relative}
+.hdr-nav a::after{content:'';position:absolute;bottom:-4px;left:0;width:0;height:1px;background:var(--gold);transition:width .3s}
+.hdr-nav a:hover::after{width:100%}
+
+/* === SMOOTH NUMBER TICKER === */
+.stat-num{transition:color .3s}
+.stat:hover .stat-num{color:var(--gold)}
+
+/* === CURSOR FOLLOWER (disabled) === */
+.cursor{display:none}
+
+/* === MARQUEE TEXT STRIP === */
+.marquee-strip{padding:20px 0;background:var(--charcoal);overflow:hidden;border-top:1px solid var(--border-dark);border-bottom:1px solid var(--border-dark)}
+.marquee-track{display:flex;gap:0;width:max-content;animation:marqueeText 20s linear infinite}
+@keyframes marqueeText{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.marquee-item{display:flex;align-items:center;gap:24px;padding:0 24px;white-space:nowrap}
+.marquee-item span{font-family:var(--serif);font-size:clamp(1rem,1.5vw,1.3rem);font-weight:400;color:rgba(255,255,255,0.5);letter-spacing:.02em}
+.marquee-item .dot{width:6px;height:6px;border-radius:50%;background:var(--gold);flex-shrink:0}
+
+/* === HERO TEXT SPLIT === */
+.hero-word{display:inline-block;opacity:0;transform:translateY(100%);animation:wordReveal .7s forwards}
+@keyframes wordReveal{to{opacity:1;transform:translateY(0)}}
+
+/* === SCROLL PROGRESS === */
+.scroll-progress{position:fixed;top:0;left:0;height:2px;background:linear-gradient(90deg,var(--terra),var(--gold));z-index:101;width:0;transition:none}
+
+/* === IMAGE TILT === */
+.tilt-card{transition:transform .4s cubic-bezier(.03,.98,.52,.99)}
+
+/* === RESPONSIVE === */
+@media(max-width:1024px){
+  .hdr-nav,.hdr-phone,.hdr-cta{display:none}
+  .hdr-burger{display:block}
+  .m-cta{display:block}
+  .pain-grid{grid-template-columns:1fr}
+  .approach-grid{grid-template-columns:repeat(2,1fr)}
+  .fmt-grid{grid-template-columns:1fr}
+  .fmt-img{height:180px}
+  .fmt-card{border-right:none;border-bottom:1px solid var(--border-light)}
+  .fmt-card:last-child{border-bottom:none}
+  .proc-grid{grid-template-columns:1fr;gap:0}
+  .proc-step{border-right:none;border-bottom:1px solid var(--border-light);display:flex;gap:20px;align-items:flex-start}
+  .proc-step:last-child{border-bottom:none}
+  .proc-step .num{font-size:2.5rem;min-width:60px}
+  .stats-grid{grid-template-columns:repeat(2,1fr)}
+  .stat{border-bottom:1px solid var(--border-dark)}
+  .stat:nth-child(2){border-right:none}
+  .stat:nth-child(4){border-right:none}
+  .transp-grid{grid-template-columns:1fr}
+  .transp-col:first-child{border-right:none;border-bottom:1px solid var(--border-light)}
+  .rev-grid{grid-template-columns:1fr}
+  .rev-card{border-right:none;border-bottom:1px solid var(--border-light)}
+  .rev-card:last-child{border-bottom:none}
+  .degu-inner{max-width:100%}
+  .cta-final .wrap{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .sec{padding:clamp(60px,8vw,100px) 0}
+  .approach-grid{grid-template-columns:1fr}
+  .stats-grid{grid-template-columns:1fr 1fr}
+  .gal-item{width:280px;height:200px}
+  .hero-actions{flex-direction:column}
+  .hero-actions .btn{text-align:center;justify-content:center}
+  .rev-logos{gap:24px}
+}
+</style>
+</head>
+<body>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress" id="scrollProg"></div>
+
+<!-- HEADER -->
+<header class="hdr" id="hdr">
+  <div class="wrap">
+    <a href="#" class="hdr-logo">АндерСон</a>
+    <nav class="hdr-nav">
+      <a href="#formats">Форматы</a>
+      <a href="#process">Процесс</a>
+      <a href="#reviews">Отзывы</a>
+      <a href="#degustation">Дегустация</a>
+      <a href="#faq">Вопросы</a>
+    </nav>
+    <a href="tel:+74951234567" class="hdr-phone">+7 (495) 123-45-67</a>
+    <div class="hdr-cta"><a href="#cta" class="btn btn-fill">Получить меню</a></div>
+    <button class="hdr-burger" id="burger" aria-label="Меню"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- MOBILE NAV -->
+<nav class="mnav" id="mnav">
+  <a href="#formats" class="mnav-link">Форматы</a>
+  <a href="#process" class="mnav-link">Процесс</a>
+  <a href="#reviews" class="mnav-link">Отзывы</a>
+  <a href="#degustation" class="mnav-link">Дегустация</a>
+  <a href="#faq" class="mnav-link">Вопросы</a>
+  <a href="#cta" class="mnav-link">Заявка</a>
+  <a href="tel:+74951234567" class="mnav-phone mnav-link">+7 (495) 123-45-67</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="hero">
+  <div class="hero-bg parallax-bg" data-speed="0.3"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="wrap">
+    <div class="hero-label"><span class="line"></span><span>Кейтеринг от сети ресторанов АндерСон</span></div>
+    <h1>Ресторан приезжает <em class="grad-text">к вам</em></h1>
+    <p class="hero-lead">Еда ресторанного уровня на вашей площадке. Фиксированная смета, один менеджер, дегустация до события. Москва и МО.</p>
+    <div class="hero-actions">
+      <a href="#cta" class="btn btn-fill">Получить меню и смету <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></a>
+      <a href="#degustation" class="btn btn-inv">Записаться на дегустацию</a>
+    </div>
+  </div>
+  <div class="hero-scroll"><span>Scroll</span><div class="arrow"></div></div>
+</section>
+
+<!-- MARQUEE STRIP -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <div class="marquee-item"><span class="dot"></span><span>Ресторанная кухня</span></div>
+    <div class="marquee-item"><span class="dot"></span><span>Фиксированная смета</span></div>
+    <div class="marquee-item"><span class="dot"></span><span>Дегустация до заказа</span></div>
+    <div class="marquee-item"><span class="dot"></span><span>Один менеджер</span></div>
+    <div class="marquee-item"><span class="dot"></span><span>Понятные порции</span></div>
+    <div class="marquee-item"><span class="dot"></span><span>Москва и МО</span></div>
+    <div class="marquee-item"><span class="dot"></span><span>От 10 до 500 гостей</span></div>
+    <div class="marquee-item"><span class="dot"></span><span>Уборка включена</span></div>
+    <!-- дубль -->
+    <div class="marquee-item"><span class="dot"></span><span>Ресторанная кухня</span></div>
+    <div class="marquee-item"><span class="dot"></span><span>Фиксированная смета</span></div>
+    <div class="marquee-item"><span class="dot"></span><span>Дегустация до заказа</span></div>
+    <div class="marquee-item"><span class="dot"></span><span>Один менеджер</span></div>
+    <div class="marquee-item"><span class="dot"></span><span>Понятные порции</span></div>
+    <div class="marquee-item"><span class="dot"></span><span>Москва и МО</span></div>
+    <div class="marquee-item"><span class="dot"></span><span>От 10 до 500 гостей</span></div>
+    <div class="marquee-item"><span class="dot"></span><span>Уборка включена</span></div>
+  </div>
+</div>
+
+<!-- PAIN -->
+<section class="sec pain" id="pain">
+  <div class="wrap">
+    <div class="sec-label rv"><span class="line"></span><span>Знакомо?</span></div>
+    <h2 class="rv">То, с чем сталкиваются<br>наши клиенты</h2>
+    <p class="sec-sub rv">Мы опросили 120 офис-менеджеров и HR-директоров. Вот что они рассказали о прошлом опыте с кейтерингом.</p>
+    <div class="pain-grid">
+      <div class="pain-card rv">
+        <div class="pain-num">01</div>
+        <h3>Еды хватило едва</h3>
+        <p>Гости у пустых подносов. Привезли на 30 человек, пришло 40. Голодные гости — злые гости. Виноваты вы.</p>
+      </div>
+      <div class="pain-card rv rv-d1">
+        <div class="pain-num">02</div>
+        <h3>Всё собирали впопыхах</h3>
+        <p>Персонал за 20 минут до начала. Стол в спешке. Руководство всё видело. Ваша репутация пострадала.</p>
+      </div>
+      <div class="pain-card rv rv-d2">
+        <div class="pain-num">03</div>
+        <h3>Смета выросла на 40%</h3>
+        <p>Доставка отдельно, сервировка отдельно, уборка тоже. Бюджет улетел — нужно объясняться перед финансами.</p>
+      </div>
+      <div class="pain-card rv rv-d3">
+        <div class="pain-num">04</div>
+        <h3>Получили не то, что ожидали</h3>
+        <p>На фото красиво, по факту — бедно и мало. Непонятно заранее, как будет выглядеть стол целиком.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPROACH / UTP -->
+<section class="sec approach" id="approach">
+  <div class="wrap">
+    <div class="sec-label rv"><span class="line"></span><span>Наш подход</span></div>
+    <h2 class="rv" style="color:#fff">Почему АндерСон —<br>это другой уровень</h2>
+    <p class="sec-sub rv">Мы не кейтеринг-цех. Мы ресторан, который приезжает к вам.</p>
+    <div class="approach-grid">
+      <div class="approach-card rv">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 13.87A4 4 0 0 1 7.41 6a5.11 5.11 0 0 1 1.05-1.54 5 5 0 0 1 7.08 0A5.11 5.11 0 0 1 16.59 6 4 4 0 0 1 18 13.87V21H6Z"/><line x1="6" y1="17" x2="18" y2="17"/></svg></div>
+        <h3>Ресторанная кухня</h3>
+        <p>Готовим в профессиональной кухне ресторана. Что ест ресторанный гость — приедет к вам на стол.</p>
+      </div>
+      <div class="approach-card rv rv-d1">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+        <h3>Дегустация до события</h3>
+        <p>Приезжайте в ресторан и попробуйте всё меню перед заказом. Без обязательств.</p>
+      </div>
+      <div class="approach-card rv rv-d2">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg></div>
+        <h3>Понятные порции</h3>
+        <p>Граммовка на человека. Не канапе-призраки, а реальная еда. Гости будут сыты.</p>
+      </div>
+      <div class="approach-card rv rv-d3">
+        <div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <h3>Один менеджер</h3>
+        <p>От первого звонка до уборки. Один человек отвечает за всё — вы не передаёте задачу по цепочке.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FORMATS -->
+<section class="sec formats" id="formats">
+  <div class="wrap">
+    <div class="sec-label rv"><span class="line"></span><span>Форматы</span></div>
+    <h2 class="rv">Выберите формат<br>под ваше мероприятие</h2>
+    <p class="sec-sub rv">Три направления — от камерных переговоров до масштабных конференций.</p>
+    <div class="fmt-grid">
+      <div class="fmt-card rv tilt-card">
+        <div class="fmt-img" style="background-image:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80&fit=crop')"></div>
+        <div class="fmt-body">
+        <div class="fmt-badge">Для бизнеса</div>
+        <h3>Переговоры и встречи</h3>
+        <p class="fmt-meta">10–30 человек · от 2 часов</p>
+        <ul class="fmt-list">
+          <li>Кофе-брейк и лёгкие закуски</li>
+          <li>Сервировка стола</li>
+          <li>Доставка и уборка включены</li>
+        </ul>
+        <div class="fmt-price">от 1 200 ₽ <small>/ чел.</small></div>
+        <a href="#cta" class="btn btn-outline">Запросить меню</a>
+        </div>
+      </div>
+      <div class="fmt-card featured rv rv-d1 tilt-card">
+        <div class="fmt-img" style="background-image:url('https://images.unsplash.com/photo-1530062845289-9109b2c9c868?w=600&q=80&fit=crop')"></div>
+        <div class="fmt-body">
+        <div class="fmt-badge">Популярный</div>
+        <h3>Корпоратив и праздник</h3>
+        <p class="fmt-meta">50–200 человек · от 3 часов</p>
+        <ul class="fmt-list">
+          <li>Фуршет или банкет на выбор</li>
+          <li>Персонал и официанты</li>
+          <li>Декор и сервировка</li>
+          <li>Полная уборка после</li>
+        </ul>
+        <div class="fmt-price">от 2 800 ₽ <small>/ чел.</small></div>
+        <a href="#cta" class="btn btn-fill">Рассчитать стоимость</a>
+        </div>
+      </div>
+      <div class="fmt-card rv rv-d2 tilt-card">
+        <div class="fmt-img" style="background-image:url('https://images.unsplash.com/photo-1511578314322-379afb476865?w=600&q=80&fit=crop')"></div>
+        <div class="fmt-body">
+        <div class="fmt-badge">Масштаб</div>
+        <h3>Конференция и event</h3>
+        <p class="fmt-meta">100–500+ человек · любая площадка</p>
+        <ul class="fmt-list">
+          <li>Несколько кофе-брейков в день</li>
+          <li>Обед в программе мероприятия</li>
+          <li>Выездная сборка и разборка</li>
+          <li>Брендинг зоны питания</li>
+        </ul>
+        <div class="fmt-price" style="font-size:1.3rem">Индивидуальный расчёт</div>
+        <a href="#cta" class="btn btn-outline">Обсудить проект</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="sec process" id="process">
+  <div class="wrap">
+    <div class="sec-label rv"><span class="line"></span><span>Как работаем</span></div>
+    <h2 class="rv">5 шагов — и стол накрыт</h2>
+    <p class="sec-sub rv">Среднее время от заявки до готовой сметы — 1 рабочий день.</p>
+    <div class="proc-grid">
+      <div class="proc-step rv"><div class="num">01</div><div><h4>Заявка</h4><p>Менеджер перезвонит за 30 минут в рабочий день</p></div></div>
+      <div class="proc-step rv rv-d1"><div class="num">02</div><div><h4>Бриф</h4><p>Формат, дата, число гостей, площадка, бюджет — за 15 минут</p></div></div>
+      <div class="proc-step rv rv-d2"><div class="num">03</div><div><h4>Смета</h4><p>PDF с позициями, граммовкой и стоимостью. Без скрытых строк</p></div></div>
+      <div class="proc-step rv rv-d3"><div class="num">04</div><div><h4>Дегустация</h4><p>Бесплатно при заказе от 50 человек. В ресторане АндерСон</p></div></div>
+      <div class="proc-step rv rv-d4"><div class="num">05</div><div><h4>День X</h4><p>Приезжаем за 2 часа. Накрываем. Работаем. Убираем. Вы — принимаете гостей</p></div></div>
+    </div>
+    <div class="proc-note rv">
+      <span class="dot"></span>
+      Работаем с юрлицами. НДС, безнал, полный пакет закрывающих документов.
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery" id="gallery">
+  <div class="wrap">
+    <div class="sec-label rv" style="text-align:center;justify-content:center"><span class="line"></span><span>Наши мероприятия</span><span class="line"></span></div>
+    <h2 class="rv" style="text-align:center">Как это выглядит</h2>
+    <p class="sec-sub rv" style="text-align:center;margin-left:auto;margin-right:auto">Фотографии с реальных мероприятий. Стоковые — для презентации, заменим на ваши.</p>
+  </div>
+  <div class="gal-marquee rv">
+    <div class="gal-track">
+      <div class="gal-item" style="background-image:url('https://images.unsplash.com/photo-1555244162-803834f70033?w=500&q=80&fit=crop')"><div class="gal-cap">Фуршет на 120 человек</div></div>
+      <div class="gal-item" style="background-image:url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&q=80&fit=crop')"><div class="gal-cap">Ресторанная подача</div></div>
+      <div class="gal-item" style="background-image:url('https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=500&q=80&fit=crop')"><div class="gal-cap">Горячие блюда</div></div>
+      <div class="gal-item" style="background-image:url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500&q=80&fit=crop')"><div class="gal-cap">Банкетный зал</div></div>
+      <div class="gal-item" style="background-image:url('https://images.unsplash.com/photo-1550966871-3ed3cdb51f3a?w=500&q=80&fit=crop')"><div class="gal-cap">Кофе-брейк</div></div>
+      <div class="gal-item" style="background-image:url('https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=500&q=80&fit=crop')"><div class="gal-cap">Десерты</div></div>
+      <div class="gal-item" style="background-image:url('https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=500&q=80&fit=crop')"><div class="gal-cap">Сервировка блюд</div></div>
+      <!-- дубликат для бесшовного цикла -->
+      <div class="gal-item" style="background-image:url('https://images.unsplash.com/photo-1555244162-803834f70033?w=500&q=80&fit=crop')"><div class="gal-cap">Фуршет на 120 человек</div></div>
+      <div class="gal-item" style="background-image:url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=500&q=80&fit=crop')"><div class="gal-cap">Ресторанная подача</div></div>
+      <div class="gal-item" style="background-image:url('https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=500&q=80&fit=crop')"><div class="gal-cap">Горячие блюда</div></div>
+      <div class="gal-item" style="background-image:url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=500&q=80&fit=crop')"><div class="gal-cap">Банкетный зал</div></div>
+      <div class="gal-item" style="background-image:url('https://images.unsplash.com/photo-1550966871-3ed3cdb51f3a?w=500&q=80&fit=crop')"><div class="gal-cap">Кофе-брейк</div></div>
+      <div class="gal-item" style="background-image:url('https://images.unsplash.com/photo-1565958011703-44f9829ba187?w=500&q=80&fit=crop')"><div class="gal-cap">Десерты</div></div>
+      <div class="gal-item" style="background-image:url('https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=500&q=80&fit=crop')"><div class="gal-cap">Сервировка блюд</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats" id="stats">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div class="stat rv"><div class="stat-num" data-count="500">0<span class="suffix">+</span></div><div class="stat-label">мероприятий проведено</div></div>
+      <div class="stat rv rv-d1"><div class="stat-num" data-count="14000">0<span class="suffix">+</span></div><div class="stat-label">гостей накормлено</div></div>
+      <div class="stat rv rv-d2"><div class="stat-num" data-count="87">0<span class="suffix">%</span></div><div class="stat-label">заказывают повторно</div></div>
+      <div class="stat rv rv-d3"><div class="stat-num" data-count="15">0<span class="suffix">+</span></div><div class="stat-label">лет ресторанного опыта</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TRANSPARENCY -->
+<section class="sec transp" id="transparency">
+  <div class="wrap">
+    <div class="sec-label rv"><span class="line"></span><span>Прозрачность</span></div>
+    <h2 class="rv">Что входит в цену.<br>И что нет.</h2>
+    <p class="sec-sub rv">Без строк «прочее» и скрытых доплат.</p>
+    <div class="transp-grid rv-scale">
+      <div class="transp-col">
+        <h3><span class="ck ck-yes"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>Входит в стоимость</h3>
+        <ul>
+          <li><span class="ck ck-yes"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>Приготовление блюд</li>
+          <li><span class="ck ck-yes"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>Доставка в пределах МКАД</li>
+          <li><span class="ck ck-yes"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>Сервировка и выкладка</li>
+          <li><span class="ck ck-yes"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>Работа официантов</li>
+          <li><span class="ck ck-yes"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>Уборка после мероприятия</li>
+          <li><span class="ck ck-yes"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></span>Посуда, скатерти, салфетки</li>
+        </ul>
+      </div>
+      <div class="transp-col">
+        <h3><span class="ck ck-opt"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="1"/></svg></span>Опции (отдельной строкой)</h3>
+        <ul>
+          <li><span class="ck ck-opt"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="1"/></svg></span>Аренда шатра или мебели</li>
+          <li><span class="ck ck-opt"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="1"/></svg></span>Выезд за МКАД (фикс. тариф)</li>
+          <li><span class="ck ck-opt"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="1"/></svg></span>Алкоголь (ваш или наш)</li>
+          <li><span class="ck ck-opt"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><circle cx="12" cy="12" r="1"/></svg></span>Шеф-станции и live cooking</li>
+        </ul>
+      </div>
+    </div>
+    <div class="transp-banner rv">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Вы знаете итоговую сумму ещё до подписания. Смета фиксируется в договоре.
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="sec reviews" id="reviews">
+  <div class="wrap">
+    <div class="sec-label rv" style="text-align:center;justify-content:center"><span class="line"></span><span>Отзывы</span><span class="line"></span></div>
+    <h2 class="rv" style="text-align:center">Нам доверяют</h2>
+    <p class="sec-sub rv" style="text-align:center;margin-left:auto;margin-right:auto">Реальные отзывы клиентов, которые заказывали кейтеринг на свои мероприятия.</p>
+    <div class="rev-logos rv">
+      <span class="rev-logo">Сбертех</span>
+      <span class="rev-logo">Яндекс</span>
+      <span class="rev-logo">ВКонтакте</span>
+      <span class="rev-logo">Ozon</span>
+      <span class="rev-logo">Тинькофф</span>
+    </div>
+    <div class="rev-grid">
+      <div class="rev-card rv">
+        <div class="rev-stars"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg></div>
+        <p class="rev-text">Заказывали фуршет на годовщину компании, 85 человек. Всё приехало вовремя, менеджер была на связи весь день. Гости остались на 40 минут дольше — значит, было вкусно.</p>
+        <div class="rev-author"><div class="rev-ava" style="background-image:url('https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&q=80&fit=crop&crop=face')"></div><div><p class="rev-name">Мария Соколова</p><p class="rev-role">Офис-менеджер, IT-компания</p></div></div>
+      </div>
+      <div class="rev-card rv rv-d1">
+        <div class="rev-stars"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg></div>
+        <p class="rev-text">Новогодний корпоратив на 150 человек. Смета не изменилась ни на рубль. Еда была как в ресторане — коллеги до сих пор вспоминают. Особенно томлёную говядину.</p>
+        <div class="rev-author"><div class="rev-ava" style="background-image:url('https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&q=80&fit=crop&crop=face')"></div><div><p class="rev-name">Алексей Козлов</p><p class="rev-role">HR-директор, финтех</p></div></div>
+      </div>
+      <div class="rev-card rv rv-d2">
+        <div class="rev-stars"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg></div>
+        <p class="rev-text">Конференция на 300 человек. Три кофе-брейка и обед. Команда приехала за 3 часа, всё было готово вовремя. Ни одной жалобы от гостей. Будем заказывать ещё.</p>
+        <div class="rev-author"><div class="rev-ava" style="background-image:url('https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&q=80&fit=crop&crop=face')"></div><div><p class="rev-name">Елена Волкова</p><p class="rev-role">Event-менеджер, консалтинг</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DEGUSTATION -->
+<section class="sec degu" id="degustation">
+  <div class="wrap">
+    <div class="degu-inner rv-scale">
+      <div class="degu-img parallax-bg" data-speed="0.15"></div>
+      <div class="degu-content">
+        <div class="sec-label"><span class="line"></span><span>Наше преимущество</span></div>
+        <h2>Приезжайте попробовать<br>до заказа</h2>
+        <p>Мы приглашаем вас в ресторан до мероприятия. Вы пробуете каждое блюдо из меню, видите сервировку, задаёте вопросы шеф-повару.</p>
+        <ul class="degu-list">
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Бесплатно при заказе от 50 человек</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>60–90 минут в ресторане АндерСон</li>
+          <li><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>Можно с коллегой или руководителем</li>
+        </ul>
+        <a href="#cta" class="btn btn-fill">Записаться на дегустацию</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="sec faq" id="faq">
+  <div class="wrap">
+    <div class="sec-label rv" style="text-align:center;justify-content:center"><span class="line"></span><span>Вопросы</span><span class="line"></span></div>
+    <h2 class="rv" style="text-align:center">Частые вопросы</h2>
+    <p class="sec-sub rv" style="text-align:center;margin-left:auto;margin-right:auto">Если не нашли ответ — напишите нам, менеджер ответит за 30 минут.</p>
+    <div class="faq-list">
+      <div class="faq-item rv"><button class="faq-q">Как быстро вы можете организовать мероприятие?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a"><p>Стандартный срок — 5 рабочих дней. Срочные заказы обсуждаем индивидуально — часто можем организовать за 2–3 дня.</p></div></div>
+      <div class="faq-item rv"><button class="faq-q">Площадка без кухни — справитесь?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a"><p>Да, у нас выездное оборудование. Работаем в офисах, лофтах, на open air — в любых локациях.</p></div></div>
+      <div class="faq-item rv"><button class="faq-q">Можно учесть аллергии и диеты?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a"><p>Обязательно. Вегетарианское, безглютеновое, халяль, без лактозы — уточняем в брифе и готовим отдельные позиции.</p></div></div>
+      <div class="faq-item rv"><button class="faq-q">Работаете с юрлицами? Нужен договор и счёт.<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a"><p>Да. НДС, безнал, полный пакет закрывающих — счёт, акт, счёт-фактура.</p></div></div>
+      <div class="faq-item rv"><button class="faq-q">Что если гостей больше, чем планировали?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a"><p>В смете закладываем 10% буфер. Дополнительные порции — по согласованному тарифу, без наценок.</p></div></div>
+      <div class="faq-item rv"><button class="faq-q">Вы убираете после мероприятия?<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button><div class="faq-a"><p>Да, уборка включена. Мы уходим последними — вы получаете чистое пространство.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="cta-final" id="cta">
+  <div class="glow"></div>
+  <div class="wrap">
+    <div class="cta-text rv">
+      <div class="sec-label"><span class="line"></span><span style="color:var(--gold)">Следующий шаг</span></div>
+      <h2>Ваш корпоратив<br>должен пройти<br>идеально</h2>
+      <p>Менеджер свяжется за 30 минут, уточнит детали и пришлёт меню под ваш формат. Без обязательств.</p>
+      <div class="cta-contacts">
+        <a href="tel:+74951234567" class="cta-contact"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.12 4.11 2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>+7 (495) 123-45-67</a>
+        <a href="mailto:catering@cafe-anderson.ru" class="cta-contact"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>catering@cafe-anderson.ru</a>
+        <a href="#" class="cta-contact"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="m22 2-7 20-4-9-9-4z"/></svg>Telegram: @anderson_catering</a>
+      </div>
+    </div>
+    <div class="cta-form rv rv-d1" id="formWrap">
+      <h3>Получить меню и смету</h3>
+      <p>Заполните форму — ответим за 30 минут</p>
+      <form id="leadForm">
+        <div class="f-group"><input type="tel" name="phone" placeholder="Ваш телефон" required></div>
+        <button type="submit" class="btn btn-fill">Отправить заявку <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg></button>
+      </form>
+    </div>
+    <div class="form-ok" id="formOk">
+      <div class="chk"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg></div>
+      <h3>Заявка отправлена</h3>
+      <p>Менеджер свяжется с вами в течение 30 минут</p>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="ftr">
+  <div class="wrap">
+    <div class="ftr-inner">
+      <div><div class="ftr-logo">АндерСон</div><p>Кейтеринг от сети ресторанов<br>Москва и Московская область</p></div>
+      <div><p style="color:rgba(255,255,255,0.5);margin-bottom:6px">Контакты</p><p>+7 (495) 123-45-67</p><p>catering@cafe-anderson.ru</p><p>Пн–Пт 9:00–20:00</p></div>
+      <div><p style="color:rgba(255,255,255,0.5);margin-bottom:6px">Разделы</p><p><a href="#formats">Форматы</a></p><p><a href="#process">Процесс</a></p><p><a href="#reviews">Отзывы</a></p><p><a href="#faq">Вопросы</a></p></div>
+    </div>
+    <p class="ftr-copy">&copy; 2026 АндерСон. Все права защищены.</p>
+  </div>
+</footer>
+
+<!-- SCROLL TOP -->
+<button class="to-top" id="toTop" aria-label="Наверх"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg></button>
+
+<!-- MOBILE CTA -->
+<div class="m-cta" id="mCta"><a href="#cta" class="btn btn-fill">Получить меню и смету</a></div>
+
+<script>
+(function(){
+  var hdr=document.getElementById('hdr'),
+      burger=document.getElementById('burger'),
+      mnav=document.getElementById('mnav'),
+      toTop=document.getElementById('toTop'),
+      mCta=document.getElementById('mCta'),
+      scrollProg=document.getElementById('scrollProg');
+
+  // === PARALLAX ===
+  var parallaxEls=document.querySelectorAll('.parallax-bg');
+
+  // === SCROLL: header, progress, parallax, toTop ===
+  var ticking=false;
+  window.addEventListener('scroll',function(){
+    var y=window.scrollY;
+    hdr.classList.toggle('scrolled',y>60);
+    toTop.classList.toggle('show',y>800);
+    if(mCta)mCta.classList.toggle('show',y>500);
+
+    // Scroll progress
+    var h=document.documentElement.scrollHeight-window.innerHeight;
+    scrollProg.style.width=(y/h*100)+'%';
+
+    // Parallax
+    if(!ticking){
+      requestAnimationFrame(function(){
+        parallaxEls.forEach(function(el){
+          var speed=parseFloat(el.dataset.speed)||0.2;
+          var rect=el.parentElement.getBoundingClientRect();
+          if(rect.bottom>0&&rect.top<window.innerHeight){
+            el.style.transform='translate3d(0,'+(y*speed)+'px,0) scale(1.15)';
+          }
+        });
+        ticking=false;
+      });
+      ticking=true;
+    }
+  },{passive:true});
+
+  // === HERO WORD SPLIT ===
+  var heroH1=document.querySelector('.hero h1');
+  if(heroH1){
+    var html=heroH1.innerHTML;
+    var parts=html.split(/(\s+|<[^>]+>)/);
+    var out='',inTag=false,wordIdx=0;
+    parts.forEach(function(p){
+      if(p.match(/^</)){ out+=p; if(p.match(/^<em/))inTag=true; if(p.match(/^<\/em/))inTag=false; return; }
+      if(p.match(/^\s+$/)){out+=p;return;}
+      var delay=0.5+wordIdx*0.12;
+      out+='<span class="hero-word" style="animation-delay:'+delay+'s">'+p+'</span>';
+      wordIdx++;
+    });
+    heroH1.innerHTML=out;
+    heroH1.style.opacity='1';heroH1.style.animation='none';heroH1.style.transform='none';
+  }
+
+  // === SCROLL TO TOP ===
+  toTop.addEventListener('click',function(){window.scrollTo({top:0,behavior:'smooth'})});
+
+  // === BURGER ===
+  burger.addEventListener('click',function(){
+    burger.classList.toggle('open');
+    mnav.classList.toggle('open');
+    document.body.style.overflow=mnav.classList.contains('open')?'hidden':'';
+  });
+  document.querySelectorAll('.mnav-link').forEach(function(a){
+    a.addEventListener('click',function(){
+      burger.classList.remove('open');mnav.classList.remove('open');document.body.style.overflow='';
+    });
+  });
+
+  // === FAQ ===
+  document.querySelectorAll('.faq-q').forEach(function(btn){
+    btn.addEventListener('click',function(){
+      var item=this.closest('.faq-item'),open=item.classList.contains('open');
+      document.querySelectorAll('.faq-item.open').forEach(function(el){el.classList.remove('open')});
+      if(!open)item.classList.add('open');
+    });
+  });
+
+  // === FORM ===
+  var form=document.getElementById('leadForm'),
+      wrap=document.getElementById('formWrap'),
+      ok=document.getElementById('formOk');
+  form.addEventListener('submit',function(e){
+    e.preventDefault();
+    var d=new FormData(form),o={};
+    d.forEach(function(v,k){o[k]=v});
+    console.log('Lead:',o);
+    wrap.style.display='none';
+    ok.classList.add('show');
+  });
+
+  // === TILT CARDS ===
+  document.querySelectorAll('.tilt-card').forEach(function(card){
+    card.addEventListener('mousemove',function(e){
+      var rect=card.getBoundingClientRect();
+      var x=(e.clientX-rect.left)/rect.width-.5;
+      var y=(e.clientY-rect.top)/rect.height-.5;
+      card.style.transform='perspective(800px) rotateY('+x*6+'deg) rotateX('+(-y*6)+'deg) translateY(-6px)';
+    });
+    card.addEventListener('mouseleave',function(){
+      card.style.transform='perspective(800px) rotateY(0) rotateX(0) translateY(0)';
+    });
+  });
+
+  // === MAGNETIC BUTTONS ===
+  document.querySelectorAll('.btn-fill,.btn-inv').forEach(function(btn){
+    btn.addEventListener('mousemove',function(e){
+      var rect=btn.getBoundingClientRect();
+      var x=e.clientX-rect.left-rect.width/2;
+      var y=e.clientY-rect.top-rect.height/2;
+      btn.style.transform='translate('+x*0.15+'px,'+y*0.15+'px)';
+    });
+    btn.addEventListener('mouseleave',function(){
+      btn.style.transform='';
+    });
+  });
+
+  // === REVEAL ===
+  var obs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}
+    });
+  },{threshold:0.1,rootMargin:'0px 0px -40px 0px'});
+  document.querySelectorAll('.rv,.rv-scale,.rv-left,.rv-right').forEach(function(el){obs.observe(el)});
+
+  // === COUNTERS ===
+  var cObs=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){countUp(e.target);cObs.unobserve(e.target)}
+    });
+  },{threshold:0.5});
+  document.querySelectorAll('.stat-num[data-count]').forEach(function(el){cObs.observe(el)});
+
+  function countUp(el){
+    var target=parseInt(el.dataset.count),dur=2200,start=null;
+    var suffix=el.querySelector('.suffix');
+    var sfx=suffix?suffix.textContent:'';
+    function step(ts){
+      if(!start)start=ts;
+      var p=Math.min((ts-start)/dur,1);
+      var ease=1-Math.pow(1-p,3);
+      var cur=Math.floor(ease*target);
+      el.textContent=cur>=1000?cur.toLocaleString('ru-RU'):cur;
+      if(suffix){var s=document.createElement('span');s.className='suffix';s.textContent=sfx;el.appendChild(s)}
+      if(p<1)requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+})();
+</script>
+</body>
+</html>
