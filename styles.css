@@ -68,6 +68,21 @@ h3{font-size:clamp(1.25rem,2vw,1.75rem)}
 .hdr-cta .btn-fill{padding:12px 28px;font-size:.8rem}
 .hdr.scrolled .hdr-cta .btn-fill{background:var(--charcoal)}
 .hdr.scrolled .hdr-cta .btn-fill:hover{background:var(--terra)}
+.hdr-dropdown{position:relative;display:inline-block}
+.hdr-dropdown-trigger{display:inline-flex;align-items:center;gap:6px;cursor:pointer}
+.hdr-dropdown-trigger svg{transition:transform .3s;opacity:.6}
+.hdr-dropdown:hover .hdr-dropdown-trigger svg{transform:rotate(180deg)}
+.hdr-dropdown-menu{position:absolute;top:100%;left:-20px;padding-top:20px;opacity:0;visibility:hidden;transform:translateY(-8px);transition:all .3s;min-width:300px;z-index:110}
+.hdr-dropdown:hover .hdr-dropdown-menu{opacity:1;visibility:visible;transform:translateY(0)}
+.hdr-dropdown-menu a{display:flex;flex-direction:column;gap:2px;padding:14px 20px;background:#fff;border:1px solid var(--border-light);border-bottom:none;transition:background .2s}
+.hdr-dropdown-menu a:last-child{border-bottom:1px solid var(--border-light)}
+.hdr-dropdown-menu a:hover{background:var(--cream)}
+.hdr-dropdown-menu a strong{font-family:var(--serif);font-size:1.05rem;font-weight:500;color:var(--charcoal);letter-spacing:-0.01em}
+.hdr-dropdown-menu a span{font-size:.72rem;color:var(--warm-gray)}
+.hdr:not(.scrolled) .hdr-dropdown-menu a{background:rgba(17,17,17,0.92);backdrop-filter:blur(12px);border-color:rgba(255,255,255,0.08)}
+.hdr:not(.scrolled) .hdr-dropdown-menu a:hover{background:rgba(30,30,30,0.95)}
+.hdr:not(.scrolled) .hdr-dropdown-menu a strong{color:#fff}
+.hdr:not(.scrolled) .hdr-dropdown-menu a span{color:rgba(255,255,255,0.5)}
 .hdr-burger{display:none;width:32px;height:24px;position:relative;z-index:101}
 .hdr-burger span{display:block;position:absolute;left:0;right:0;height:1.5px;background:#fff;transition:all .4s;border-radius:1px}
 .hdr.scrolled .hdr-burger span{background:var(--charcoal)}
@@ -384,7 +399,7 @@ h3{font-size:clamp(1.25rem,2vw,1.75rem)}
 
 /* === RESPONSIVE === */
 @media(max-width:1024px){
-  .hdr-nav,.hdr-phone,.hdr-cta{display:none}
+  .hdr-nav,.hdr-phone,.hdr-cta,.hdr-dropdown{display:none}
   .hdr-burger{display:block}
   .m-cta{display:block}
   .pain-grid{grid-template-columns:1fr}
